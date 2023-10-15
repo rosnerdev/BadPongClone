@@ -96,21 +96,13 @@ namespace SimpleGame
                     paddle.Y += 20;
                 }
 
-                if (ball.Intersects(paddle))
+                if (ball.X <= paddle.Right && ball.Intersects(paddle))
                 {
-                    var relativeintersectY = paddle.Y + (paddle.Height)/2 - (ball.Y + 30);
-                    var normalizedRelativeIntersectY = (float)relativeintersectY / (paddle.Height/2f);
-                    var bounceAngle = normalizedRelativeIntersectY * 75f;
-                    ballVelX = 20*Math.Cos(MathHelper.ToRadians(bounceAngle));
-                    ballVelY = 20*Math.Sin(MathHelper.ToRadians(bounceAngle));
+                    paddleReaction(true, 20);
                 }
-                else if (ball.Intersects(paddle2))
+                else if (ball.Right >= paddle2.Left && ball.Intersects(paddle2))
                 {
-                    var relativeintersectY = paddle.Y + (paddle.Height) / 2 - (ball.Y + 30);
-                    var normalizedRelativeIntersectY = (float)relativeintersectY / (paddle.Height / 2f);
-                    var bounceAngle = normalizedRelativeIntersectY * 75f;
-                    ballVelX = 20 * Math.Cos(MathHelper.ToRadians(bounceAngle));
-                    ballVelY = 20 * -Math.Sin(MathHelper.ToRadians(bounceAngle));
+                    paddleReaction(false, 20);
                 }
 
                 ball.X += (int)Math.Floor(ballVelX);
@@ -147,6 +139,21 @@ namespace SimpleGame
             ballVelY = 10;
             ball.X = Width / 2 - ball.Width / 2;
             ball.Y = Height / 2 - ball.Height / 2;
+        }
+
+        private void paddleReaction(bool isLeftPaddle, int ballSpeed) {
+            var relativeintersectY = paddle.Y + (paddle.Height) / 2 - (ball.Y + 30);
+            var normalizedRelativeIntersectY = relativeintersectY / (paddle.Height / 2f);
+            var bounceAngle = normalizedRelativeIntersectY * 75f;
+            
+            ballVelX = ballSpeed * Math.Cos(MathHelper.ToRadians(bounceAngle));
+
+            if (isLeftPaddle)
+            {
+                ballVelY = ballSpeed * Math.Sin(MathHelper.ToRadians(bounceAngle));
+            } else {
+                ballVelY = ballSpeed * -Math.Sin(MathHelper.ToRadians(bounceAngle));
+            }
         }
 
         protected override void Draw(GameTime gameTime)
