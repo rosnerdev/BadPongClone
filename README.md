@@ -1,6 +1,10 @@
 # BadPongClone
-It's a bad version of pong, it's slower, less performent, and ~~doesn't use fancy math(you're stuck in a pong loop pretty much).~~ oh wait it does use fancy math.
+It's a bad version of pong, it's slower and less performent.
 
 Still got a bunch of issues like:
-- no pause button or screen
-- probably got more that i didn't notice...
+- No pause button or screen
+- Probably got more that i didn't notice...
+
+Controls:
+- W and S(Up and Down) for the left paddle.
+- Up and Down arrows for the right paddle.
