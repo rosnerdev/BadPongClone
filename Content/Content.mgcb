@@ -20,3 +20,9 @@
 /processorParam:TextureFormat=Compressed
 /build:Arial.spritefont
 
+#begin ping.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:ping.wav
+

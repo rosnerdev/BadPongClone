@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Audio;
 using System;
 
 namespace SimpleGame
@@ -10,6 +11,7 @@ namespace SimpleGame
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
         private SpriteFont _spriteFont;
+        private SoundEffect _soundEffect;
 
         private int Height;
         private int Width;
@@ -54,6 +56,7 @@ namespace SimpleGame
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             _spriteFont = Content.Load<SpriteFont>("Arial");
+            _soundEffect = Content.Load<SoundEffect>("ping");
 
             pixel = new Texture2D(GraphicsDevice, 1, 1);
             pixel.SetData<Color>(new Color[] { Color.White });
@@ -98,10 +101,12 @@ namespace SimpleGame
 
                 if (ball.X <= paddle.Right && ball.Intersects(paddle))
                 {
+                    _soundEffect.Play();
                     paddleReaction(true, 20);
                 }
                 else if (ball.Right >= paddle2.Left && ball.Intersects(paddle2))
                 {
+                    _soundEffect.Play();
                     paddleReaction(false, 20);
                 }
 
