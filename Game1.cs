@@ -101,15 +101,15 @@ namespace SimpleGame
 
                 if (ball.X <= paddle.Right && ball.Intersects(paddle))
                 {
-                    ball.X = paddle.Right;
                     _soundEffect.Play();
                     paddleReaction(true, 25);
+                    ball.X = paddle.Right;
                 }
                 else if (ball.Right >= paddle2.Left && ball.Intersects(paddle2))
                 {
-                    ball.X = paddle2.Left - ball.Width;
                     _soundEffect.Play();
                     paddleReaction(false, 25);
+                    ball.X = paddle2.Left - ball.Width;
                 }
 
                 ball.X += (int)Math.Floor(ballVelX);
