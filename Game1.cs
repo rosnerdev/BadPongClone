@@ -107,7 +107,7 @@ namespace SimpleGame
                 }
                 else if (ball.Right >= paddle2.Left && ball.Intersects(paddle2))
                 {
-                    ball.X = paddle2.Left - ball.Width - 1;
+                    ball.X = paddle2.Left - ball.Width;
                     _soundEffect.Play();
                     paddleReaction(false, 25);
                 }
@@ -153,7 +153,7 @@ namespace SimpleGame
         private void paddleReaction(bool isLeftPaddle, int ballSpeed) {
             var relativeintersectY = paddle.Y + (paddle.Height) / 2 - (ball.Y + 30);
             var normalizedRelativeIntersectY = relativeintersectY / (paddle.Height / 2f);
-            var bounceAngle = normalizedRelativeIntersectY * 60f;
+            var bounceAngle = normalizedRelativeIntersectY * 50f;
             
             ballVelX = ballSpeed * Math.Cos(MathHelper.ToRadians(bounceAngle));
 
