@@ -21,8 +21,8 @@ namespace SimpleGame
         private Rectangle paddle2;
         private Rectangle ball;
 
-        private double ballVelX = -20; // Initial horizontal velocity
-        private double ballVelY = -20; // Initial vertical velocity
+        private double ballVelX = -25; // Initial horizontal velocity
+        private double ballVelY = -25; // Initial vertical velocity
 
         private int points = 0;
         private int points2 = 0;
@@ -83,31 +83,33 @@ namespace SimpleGame
 
                 if (Keyboard.GetState().IsKeyDown(Keys.Up))
                 {
-                    paddle2.Y -= 20;
+                    paddle2.Y -= 25;
                 }
                 else if (Keyboard.GetState().IsKeyDown(Keys.Down))
                 {
-                    paddle2.Y += 20;
+                    paddle2.Y += 25;
                 }
 
                 if (Keyboard.GetState().IsKeyDown(Keys.W))
                 {
-                    paddle.Y -= 20;
+                    paddle.Y -= 25;
                 }
                 else if (Keyboard.GetState().IsKeyDown(Keys.S))
                 {
-                    paddle.Y += 20;
+                    paddle.Y += 25;
                 }
 
                 if (ball.X <= paddle.Right && ball.Intersects(paddle))
                 {
+                    ball.X = paddle.Right;
                     _soundEffect.Play();
-                    paddleReaction(true, 20);
+                    paddleReaction(true, 25);
                 }
                 else if (ball.Right >= paddle2.Left && ball.Intersects(paddle2))
                 {
+                    ball.X = paddle2.Left - ball.Width - 1;
                     _soundEffect.Play();
-                    paddleReaction(false, 20);
+                    paddleReaction(false, 25);
                 }
 
                 ball.X += (int)Math.Floor(ballVelX);
@@ -118,6 +120,8 @@ namespace SimpleGame
 
                 if (ball.Y <= 0 || ball.Y + ball.Height >= Height)
                 {
+                    if (ball.Y < 0) { ball.Y = 0; }
+                    if (ball.Y + ball.Height > Height) { ball.Y = Height - ball.Height; }
                     ballVelY = -ballVelY;
                 }
 
@@ -140,8 +144,8 @@ namespace SimpleGame
 
         private void ResetBall()
         {
-            ballVelX = 10;
-            ballVelY = 10;
+            ballVelX = 25;
+            ballVelY = 25;
             ball.X = Width / 2 - ball.Width / 2;
             ball.Y = Height / 2 - ball.Height / 2;
         }
@@ -149,7 +153,7 @@ namespace SimpleGame
         private void paddleReaction(bool isLeftPaddle, int ballSpeed) {
             var relativeintersectY = paddle.Y + (paddle.Height) / 2 - (ball.Y + 30);
             var normalizedRelativeIntersectY = relativeintersectY / (paddle.Height / 2f);
-            var bounceAngle = normalizedRelativeIntersectY * 75f;
+            var bounceAngle = normalizedRelativeIntersectY * 60f;
             
             ballVelX = ballSpeed * Math.Cos(MathHelper.ToRadians(bounceAngle));
 
