@@ -101,11 +101,6 @@ namespace SimpleGame
                 {
                     paddle.Y += 25;
                 }
-                
-                if (Keyboard.GetState().IsKeyDown(Keys.G))
-                {
-                    resetGame();
-                }
 
                 if (ball.X <= paddle.Right && ball.Intersects(paddle))
                 {
@@ -147,6 +142,11 @@ namespace SimpleGame
                 }
             }
 
+            if (Keyboard.GetState().IsKeyDown(Keys.G))
+            {
+                resetGame();
+            }
+
             base.Update(gameTime);
         }
 
@@ -184,7 +184,18 @@ namespace SimpleGame
         {
             GraphicsDevice.Clear(Color.Black);
 
-            if (points < 5 && points2 < 5) {
+            if (points == 5)
+            {
+                _spriteBatch.Begin();
+                _spriteBatch.DrawString(_spriteFont, "Player 1 has won!", new Vector2(600, 10), Color.White);
+                _spriteBatch.End();
+            } else if (points2 == 5) {
+                _spriteBatch.Begin();
+                _spriteBatch.DrawString(_spriteFont, "Player 2 has won!", new Vector2(600, 10), Color.White);
+                _spriteBatch.End();
+            }
+            if (points < 5 && points2 < 5)
+            {
                 _spriteBatch.Begin();
                 _spriteBatch.Draw(pixel, paddle, Color.White);
                 _spriteBatch.Draw(pixel, paddle2, Color.White);
@@ -192,20 +203,6 @@ namespace SimpleGame
                 _spriteBatch.DrawString(_spriteFont, score, new Vector2(600, 10), Color.White);
                 _spriteBatch.DrawString(_spriteFont, score2, new Vector2(1000, 10), Color.White);
                 _spriteBatch.End();
-            } else
-            {
-                if(points == 5)
-                {
-                    _spriteBatch.Begin();
-                    _spriteBatch.DrawString(_spriteFont, "Player 1 has won!", new Vector2(600, 10), Color.White);
-                    _spriteBatch.End();
-                }
-                else
-                {
-                    _spriteBatch.Begin();
-                    _spriteBatch.DrawString(_spriteFont, "Player 2 has won!", new Vector2(600, 10), Color.White);
-                    _spriteBatch.End();
-                }
             }
 
             base.Draw(gameTime);
