@@ -94,9 +94,15 @@ namespace SimpleGame
                 {
                     paddle.Y -= 25;
                 }
+
                 else if (Keyboard.GetState().IsKeyDown(Keys.S))
                 {
                     paddle.Y += 25;
+                }
+                
+                if (Keyboard.GetState().IsKeyDown(Keys.G))
+                {
+                    resetGame();
                 }
 
                 if (ball.X <= paddle.Right && ball.Intersects(paddle))
@@ -151,9 +157,9 @@ namespace SimpleGame
         }
 
         private void paddleReaction(bool isLeftPaddle, int ballSpeed) {
-            var relativeintersectY = paddle.Y + (paddle.Height) / 2 - (ball.Y + 30);
+            var relativeintersectY = (paddle.Y + (paddle.Height) / 2) - (ball.Y + ball.Height);
             var normalizedRelativeIntersectY = relativeintersectY / (paddle.Height / 2f);
-            var bounceAngle = normalizedRelativeIntersectY * 50f;
+            var bounceAngle = normalizedRelativeIntersectY * 25f;
             
             ballVelX = ballSpeed * Math.Cos(MathHelper.ToRadians(bounceAngle));
 
@@ -163,6 +169,12 @@ namespace SimpleGame
             } else {
                 ballVelY = ballSpeed * -Math.Sin(MathHelper.ToRadians(bounceAngle));
             }
+        }
+
+        private void resetGame() {
+            points = 0;
+            points2 = 0;
+            ResetBall();
         }
 
         protected override void Draw(GameTime gameTime)

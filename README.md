@@ -9,3 +9,4 @@ Still got a bunch of issues like:
 Controls:
 - W and S(Up and Down) for the left paddle.
 - Up and Down arrows for the right paddle.
+- G to restart the game.
