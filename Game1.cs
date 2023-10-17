@@ -166,8 +166,10 @@ namespace SimpleGame
             if (isLeftPaddle)
             {
                 ballVelY = ballSpeed * Math.Sin(MathHelper.ToRadians(bounceAngle));
+                if (ballVelX < 0) { ballVelX = -ballVelX; }
             } else {
                 ballVelY = ballSpeed * -Math.Sin(MathHelper.ToRadians(bounceAngle));
+                if (ballVelX > 0) { ballVelX = -ballVelX; }
             }
         }
 
