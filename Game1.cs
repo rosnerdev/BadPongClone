@@ -21,6 +21,8 @@ namespace SimpleGame
         private Rectangle paddle2;
         private Rectangle ball;
 
+        private bool hasReset = false;
+
         private double ballVelX = -25; // Initial horizontal velocity
         private double ballVelY = -25; // Initial vertical velocity
 
@@ -159,7 +161,7 @@ namespace SimpleGame
         private void paddleReaction(bool isLeftPaddle, int ballSpeed) {
             var relativeintersectY = (paddle.Y + (paddle.Height) / 2) - (ball.Y + ball.Height);
             var normalizedRelativeIntersectY = relativeintersectY / (paddle.Height / 2f);
-            var bounceAngle = normalizedRelativeIntersectY * 25f;
+            var bounceAngle = normalizedRelativeIntersectY * 35f;
             
             ballVelX = ballSpeed * Math.Cos(MathHelper.ToRadians(bounceAngle));
 
@@ -176,7 +178,6 @@ namespace SimpleGame
         private void resetGame() {
             points = 0;
             points2 = 0;
-            ResetBall();
         }
 
         protected override void Draw(GameTime gameTime)
@@ -202,7 +203,7 @@ namespace SimpleGame
                 else
                 {
                     _spriteBatch.Begin();
-                    _spriteBatch.DrawString(_spriteFont, "Player 1 has won!", new Vector2(600, 10), Color.White);
+                    _spriteBatch.DrawString(_spriteFont, "Player 2 has won!", new Vector2(600, 10), Color.White);
                     _spriteBatch.End();
                 }
             }
