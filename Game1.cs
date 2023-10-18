@@ -63,8 +63,8 @@ namespace SimpleGame
             pixel = new Texture2D(GraphicsDevice, 1, 1);
             pixel.SetData<Color>(new Color[] { Color.White });
 
-            paddle = new Rectangle(200, 100, 20, 100); // Adjust paddle dimensions
-            paddle2 = new Rectangle(Width - 220, 100, 20, 100); // Adjust paddle dimensions
+            paddle = new Rectangle(0, 100, 20, 150); // Adjust paddle dimensions
+            paddle2 = new Rectangle(Width - 20, 100, 20, 150); // Adjust paddle dimensions
             ball = new Rectangle(Width / 2 - 15, Height / 2 - 15, 30, 30);
 
             base.LoadContent();
