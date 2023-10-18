@@ -75,6 +75,8 @@ namespace SimpleGame
             Height = _graphics.GraphicsDevice.Viewport.Height;
             Width = _graphics.GraphicsDevice.Viewport.Width;
 
+            paddle2.X = Width - 20;
+
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
