@@ -162,8 +162,7 @@ namespace SimpleGame
 
         private void paddleReaction(bool isLeftPaddle, int ballSpeed) {
             var relativeintersectY = (paddle.Y + (paddle.Height) / 2) - (ball.Y + ball.Height);
-            var normalizedRelativeIntersectY = relativeintersectY / (paddle.Height / 2f);
-            var bounceAngle = normalizedRelativeIntersectY * 35f;
+            var bounceAngle = relativeintersectY * 60f ;
             
             ballVelX = ballSpeed * Math.Cos(MathHelper.ToRadians(bounceAngle));
 
