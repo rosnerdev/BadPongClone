@@ -31,6 +31,11 @@ namespace SimpleGame
         private string score = string.Empty;
         private string score2 = string.Empty;
 
+        private bool isMenu = true;
+        private Rectangle cursorRect;
+        private Rectangle button;
+        private Color buttonColor;
+
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this)
@@ -50,6 +55,9 @@ namespace SimpleGame
             score = "0 points";
             Height = _graphics.GraphicsDevice.Viewport.Height;
             Width = _graphics.GraphicsDevice.Viewport.Width;
+            cursorRect = new Rectangle(Mouse.GetState().X, Mouse.GetState().Y, 1, 1);
+            button = new Rectangle(Width / 2 - 100, Height / 2 - 60, 200, 120);
+            buttonColor = Color.White;
 
             base.Initialize();
         }
@@ -75,13 +83,30 @@ namespace SimpleGame
             Height = _graphics.GraphicsDevice.Viewport.Height;
             Width = _graphics.GraphicsDevice.Viewport.Width;
 
+            cursorRect = new Rectangle(Mouse.GetState().X, Mouse.GetState().Y, 1, 1);
+            button = new Rectangle(Width / 2 - 100, Height / 2 - 60, 200, 120);
+
             paddle2.X = Width - 20;
 
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            if (points < 5 && points2 < 5)
+            if (isMenu)
             {
+                if (cursorRect.Intersects(button))
+                {
+                    buttonColor = Color.LightBlue;
+                    if (Mouse.GetState().LeftButton == ButtonState.Pressed) {
+                        isMenu = false;
+                    }
+                }
+            } else if (points < 5 && points2 < 5)
+            {
+                if (Keyboard.GetState().IsKeyDown(Keys.G))
+                {
+                    resetGame();
+                }
+
                 score = "Player 1 has " + points + " points.";
                 score2 = "Player 2 has " + points2 + " points.";
 
@@ -152,6 +177,13 @@ namespace SimpleGame
             base.Update(gameTime);
         }
 
+        private void DrawMenu() {
+            _spriteBatch.Begin();
+            _spriteBatch.Draw(pixel, button, buttonColor);
+            _spriteBatch.DrawString(_spriteFont, "Click to play", new Vector2(Width / 2 - 80, Height / 2 - 40), Color.Black);
+            _spriteBatch.End();
+        }
+
         private void ResetBall()
         {
             ballVelX = 25;
@@ -184,8 +216,10 @@ namespace SimpleGame
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.Black);
-
-            if (points == 5)
+            if (isMenu)
+            {
+                DrawMenu();
+            } else if (points == 5)
             {
                 _spriteBatch.Begin();
                 _spriteBatch.DrawString(_spriteFont, "Player 1 has won!", new Vector2(600, 10), Color.White);
@@ -194,8 +228,7 @@ namespace SimpleGame
                 _spriteBatch.Begin();
                 _spriteBatch.DrawString(_spriteFont, "Player 2 has won!", new Vector2(600, 10), Color.White);
                 _spriteBatch.End();
-            }
-            if (points < 5 && points2 < 5)
+            } else if (points < 5 && points2 < 5)
             {
                 _spriteBatch.Begin();
                 _spriteBatch.Draw(pixel, paddle, Color.White);
